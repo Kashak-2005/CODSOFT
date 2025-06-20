@@ -1,4 +1,4 @@
-  **CODSOFT**
+
 🧮 Calculator
 A basic calculator built using Python and Tkinter. It supports simple arithmetic operations (+, -, *, /), provides a clean UI with clear and backspace options, and is easy to use for everyday calculations.
 

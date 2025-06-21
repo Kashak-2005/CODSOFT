@@ -18,3 +18,9 @@ def calculate():
         entry_var.set(result)
     except:
         entry_var.set('Error')
+
+root = tk.Tk()
+root.title("QuickSum Calculator")
+root.geometry("320x520")
+root.resizable(False, False)
+root.configure(bg='#222222')

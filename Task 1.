@@ -24,3 +24,8 @@ root.title("QuickSum Calculator")
 root.geometry("320x520")
 root.resizable(False, False)
 root.configure(bg='#222222')
+
+style = ttk.Style()
+style.theme_use('clam')
+
+

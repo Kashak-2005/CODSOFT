@@ -28,4 +28,14 @@ root.configure(bg='#222222')
 style = ttk.Style()
 style.theme_use('clam')
 
+style.configure('TButton',
+                font=('Helvetica', 16),
+                padding=8,
+                background='#000000',
+                foreground='white',
+                relief='flat')
+style.map('TButton',
+          background=[('active', '#333333')],
+          foreground=[('active', 'white')])
+
 

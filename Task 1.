@@ -38,4 +38,10 @@ style.map('TButton',
           background=[('active', '#333333')],
           foreground=[('active', 'white')])
 
+entry_var = tk.StringVar()
+entry = ttk.Entry(root, textvariable=entry_var, font=('Helvetica', 24), justify='right')
+entry.grid(row=1, column=0, columnspan=4, sticky='ew', padx=10, pady=10, ipady=8)
+
+
+
 

@@ -53,6 +53,40 @@ buttons = [
     ('0', click_button), ('.', click_button), ('=', calculate), ('+', click_button),
 ]
 
+row = 2
+col = 0
+for (text, func) in buttons:
+    btn_style = 'TButton'
+    btn_bg = '#000000'
+    btn_fg = 'white'
+    if text == 'C':
+        btn_bg = 'red'
+    btn = ttk.Button(
+        root, text=text,
+        command=(lambda x=text, f=func: f(x) if f in [click_button] else f())
+    )
+    btn.grid(row=row, column=col, sticky='nsew', ipadx=10, ipady=10, padx=4, pady=4)
+    btn.configure(style='TButton')
+    btn.configure(style='TButton')
+    btn.configure(takefocus=False)
+
+    if text == 'C':
+        btn.destroy() 
+        btn = tk.Button(
+            root, text=text, font=('Helvetica', 16),
+            bg='red', fg='white',
+            relief='flat',
+            command=(lambda f=func: f())
+        )
+        btn.grid(row=row, column=col, sticky='nsew', ipadx=10, ipady=10, padx=4, pady=4)
+
+    col += 1
+    if col > 3:
+        col = 0
+        row += 1
+
+
+
 
 
 

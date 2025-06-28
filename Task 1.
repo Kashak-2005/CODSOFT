@@ -85,6 +85,13 @@ for (text, func) in buttons:
         col = 0
         row += 1
 
+for i in range(4):
+    root.columnconfigure(i, weight=1)
+for i in range(row+1):
+    root.rowconfigure(i, weight=1)
+
+root.mainloop()
+
 
 
 

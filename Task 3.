@@ -1,1 +1,15 @@
+import tkinter as tk
+from tkinter import messagebox
+import random
+import string
 
+def evaluate_strength(password):
+    length = len(password)
+    if length < 6:
+        return "Weak", "red"
+    if (any(c.islower() for c in password) and
+        any(c.isupper() for c in password) and
+        any(c.isdigit() for c in password) and
+        any(c in string.punctuation for c in password)):
+        return "Strong", "green"
+    return "Moderate", "orange"

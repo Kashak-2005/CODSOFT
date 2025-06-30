@@ -13,3 +13,37 @@ def evaluate_strength(password):
         any(c in string.punctuation for c in password)):
         return "Strong", "green"
     return "Moderate", "orange"
+
+def generate_password():
+    try:
+        length = int(length_entry.get())
+        if length <= 0:
+            raise ValueError
+
+        characters = ""
+        if var_lower.get():
+            characters += string.ascii_lowercase
+        if var_upper.get():
+            characters += string.ascii_uppercase
+        if var_digits.get():
+            characters += string.digits
+        if var_special.get():
+            characters += string.punctuation
+
+        if not characters:
+            messagebox.showwarning("Warning", "Select at least one character type!")
+            return
+
+        password = ''.join(random.choice(characters) for _ in range(length))
+        password_entry.delete(0, tk.END)
+        password_entry.insert(0, password)
+
+        # Show strength
+        strength, color = evaluate_strength(password)
+        strength_label.config(text=f"Strength: {strength}", fg=color)
+
+    except ValueError:
+        messagebox.showerror("Invalid Input", "Please enter a valid number for length.")
+
+
+

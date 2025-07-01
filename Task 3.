@@ -45,5 +45,14 @@ def generate_password():
     except ValueError:
         messagebox.showerror("Invalid Input", "Please enter a valid number for length.")
 
+def copy_to_clipboard():
+    pwd = password_entry.get()
+    if pwd:
+        root.clipboard_clear()
+        root.clipboard_append(pwd)
+        messagebox.showinfo("Copied", "Password copied to clipboard!")
+
+
+
 
 

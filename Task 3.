@@ -52,6 +52,13 @@ def copy_to_clipboard():
         root.clipboard_append(pwd)
         messagebox.showinfo("Copied", "Password copied to clipboard!")
 
+root = tk.Tk()
+root.title("🌸 Left-Aligned Password Generator")
+root.geometry("420x480")
+root.config(bg="#E3F2FD")  
+
+
+
 
 
 

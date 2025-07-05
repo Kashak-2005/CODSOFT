@@ -71,6 +71,14 @@ var_upper = tk.BooleanVar(value=True)
 var_digits = tk.BooleanVar(value=True)
 var_special = tk.BooleanVar(value=True)
 
+tk.Checkbutton(frame, text="Include Lowercase (a-z)", variable=var_lower, bg="white").pack(anchor="w")
+tk.Checkbutton(frame, text="Include Uppercase (A-Z)", variable=var_upper, bg="white").pack(anchor="w")
+tk.Checkbutton(frame, text="Include Digits (0-9)", variable=var_digits, bg="white").pack(anchor="w")
+tk.Checkbutton(frame, text="Include Special (!@#$)", variable=var_special, bg="white").pack(anchor="w")
+
+
+
+
 
 
 

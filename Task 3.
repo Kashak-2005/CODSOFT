@@ -76,6 +76,13 @@ tk.Checkbutton(frame, text="Include Uppercase (A-Z)", variable=var_upper, bg="wh
 tk.Checkbutton(frame, text="Include Digits (0-9)", variable=var_digits, bg="white").pack(anchor="w")
 tk.Checkbutton(frame, text="Include Special (!@#$)", variable=var_special, bg="white").pack(anchor="w")
 
+tk.Button(frame, text="🔐 Generate Password", command=generate_password,
+          bg="#64B5F6", fg="white", padx=10, pady=5, relief="flat").pack(anchor="w", pady=10)
+
+tk.Label(frame, text="Generated Password:", bg="white").pack(anchor="w")
+password_entry = tk.Entry(frame, font=("Courier", 12), width=30, bd=2, relief="solid")
+password_entry.pack(anchor="w", pady=5)
+
 
 
 

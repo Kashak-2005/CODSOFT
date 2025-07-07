@@ -83,6 +83,13 @@ tk.Label(frame, text="Generated Password:", bg="white").pack(anchor="w")
 password_entry = tk.Entry(frame, font=("Courier", 12), width=30, bd=2, relief="solid")
 password_entry.pack(anchor="w", pady=5)
 
+tk.Button(frame, text="📋 Copy to Clipboard", command=copy_to_clipboard,
+          bg="#81C784", fg="white", padx=8, pady=4, relief="flat").pack(anchor="w", pady=5)
+
+strength_label = tk.Label(frame, text="", bg="white", font=("Arial", 10, "bold"))
+strength_label.pack(anchor="w")
+
+
 
 
 

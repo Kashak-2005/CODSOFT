@@ -13,3 +13,21 @@ def determine_winner(user_choice, comp_choice):
         return "You Win!"
     else:
         return "You Lose!"
+
+def make_choice(user_choice):
+    global user_score, comp_score
+    comp_choice = random.choice(choices)
+    result = determine_winner(user_choice, comp_choice)
+    
+    if result == "You Win!":
+        user_score += 1
+    elif result == "You Lose!":
+        comp_score += 1
+
+    user_choice_label.config(text=f"Your Choice: {user_choice}")
+    comp_choice_label.config(text=f"Computer's Choice: {comp_choice}")
+    result_label.config(text=result)
+    score_label.config(text=f"Score: You {user_score} - {comp_score} Computer")
+
+
+

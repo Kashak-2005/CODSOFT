@@ -29,5 +29,16 @@ def make_choice(user_choice):
     result_label.config(text=result)
     score_label.config(text=f"Score: You {user_score} - {comp_score} Computer")
 
+def reset_game():
+    global user_score, comp_score
+    user_score = 0
+    comp_score = 0
+    user_choice_label.config(text="Your Choice: ")
+    comp_choice_label.config(text="Computer's Choice: ")
+    result_label.config(text="")
+    score_label.config(text="Score: You 0 - 0 Computer")
+
+
+
 
 

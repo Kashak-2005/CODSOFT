@@ -38,6 +38,12 @@ def reset_game():
     result_label.config(text="")
     score_label.config(text="Score: You 0 - 0 Computer")
 
+def on_exit():
+    if messagebox.askyesno("Quit Game", "Are you sure you want to quit?"):
+        root.destroy()
+
+
+
 
 
 

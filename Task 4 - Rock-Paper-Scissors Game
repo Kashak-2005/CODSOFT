@@ -45,6 +45,26 @@ def on_exit():
 user_score = 0
 comp_score = 0
 
+root = tk.Tk()
+root.title("Rock-Paper-Scissors Game")
+root.geometry("400x500")
+root.config(bg="#f0f8ff")
+
+title = tk.Label(root, text="🪨 Rock ✋ Paper ✂️ Scissors", font=("Arial", 18, "bold"), bg="#f0f8ff", fg="#333")
+title.pack(pady=20)
+
+user_choice_label = tk.Label(root, text="Your Choice: ", font=("Arial", 14), bg="#f0f8ff")
+user_choice_label.pack(pady=5)
+
+comp_choice_label = tk.Label(root, text="Computer's Choice: ", font=("Arial", 14), bg="#f0f8ff")
+comp_choice_label.pack(pady=5)
+
+result_label = tk.Label(root, text="", font=("Arial", 16, "bold"), fg="#4b0082", bg="#f0f8ff")
+result_label.pack(pady=20)
+
+score_label = tk.Label(root, text="Score: You 0 - 0 Computer", font=("Arial", 12, "bold"), bg="#f0f8ff")
+score_label.pack(pady=10)
+
 
 
 

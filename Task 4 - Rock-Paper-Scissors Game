@@ -65,6 +65,9 @@ result_label.pack(pady=20)
 score_label = tk.Label(root, text="Score: You 0 - 0 Computer", font=("Arial", 12, "bold"), bg="#f0f8ff")
 score_label.pack(pady=10)
 
+button_frame = tk.Frame(root, bg="#f0f8ff")
+button_frame.pack(pady=10)
+
 
 
 

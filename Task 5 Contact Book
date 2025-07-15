@@ -1,0 +1,169 @@
+import tkinter as tk
+from tkinter import ttk, messagebox
+
+contacts = []
+
+def add_contact():
+    name, phone = name_var.get(), phone_var.get()
+    if not name or not phone:
+        messagebox.showwarning("Input Error", "Name and Phone are required!")
+        return
+    contacts.append({
+        "name": name,
+        "phone": phone,
+        "email": email_var.get(),
+        "address": address_var.get()
+    })
+    messagebox.showinfo("Success", "Contact Added!")
+    clear_fields()
+    refresh_list()
+
+def refresh_list():
+    contact_list.delete(*contact_list.get_children())
+    for i, c in enumerate(contacts):
+        tag = 'even' if i % 2 == 0 else 'odd'
+        contact_list.insert('', 'end', iid=i, values=(c["name"], c["phone"], c["email"], c["address"]), tags=(tag,))
+
+def search_contact():
+    query = search_var.get().lower()
+    contact_list.delete(*contact_list.get_children())
+    for i, c in enumerate(contacts):
+        if query in c["name"].lower() or query in c["phone"]:
+            tag = 'even' if i % 2 == 0 else 'odd'
+            contact_list.insert('', 'end', iid=i, values=(c["name"], c["phone"], c["email"], c["address"]), tags=(tag,))
+
+def on_select(event):
+    selected = contact_list.selection()
+    if not selected:
+        return
+    i = int(selected[0])
+    c = contacts[i]
+    name_var.set(c["name"])
+    phone_var.set(c["phone"])
+    email_var.set(c["email"])
+    address_var.set(c["address"])
+
+def update_contact():
+    selected = contact_list.selection()
+    if not selected:
+        messagebox.showwarning("Error", "Select a contact to update.")
+        return
+    i = int(selected[0])
+    contacts[i] = {
+        "name": name_var.get(),
+        "phone": phone_var.get(),
+        "email": email_var.get(),
+        "address": address_var.get()
+    }
+    messagebox.showinfo("Updated", "Contact Updated!")
+    clear_fields()
+    refresh_list()
+
+def delete_contact():
+    selected = contact_list.selection()
+    if not selected:
+        messagebox.showwarning("Error", "Select a contact to delete.")
+        return
+    i = int(selected[0])
+    del contacts[i]
+    messagebox.showinfo("Deleted", "Contact Deleted!")
+    clear_fields()
+    refresh_list()
+
+def clear_fields():
+    name_var.set("")
+    phone_var.set("")
+    email_var.set("")
+    address_var.set("")
+
+root = tk.Tk()
+root.title("📇 Contact Book Dashboard")
+root.geometry("1000x600")
+root.configure(bg="#f0f4f7")
+
+name_var = tk.StringVar()
+phone_var = tk.StringVar()
+email_var = tk.StringVar()
+address_var = tk.StringVar()
+search_var = tk.StringVar()
+
+tk.Label(root, text="📇 Contact Book", font=("Helvetica", 20, 'bold'), bg="#f0f4f7", fg="#003d66").pack(pady=10)
+
+dashboard = tk.Frame(root, bg="#f0f4f7")
+dashboard.pack(fill="both", expand=True, padx=10)
+
+left_frame = tk.Frame(dashboard, width=400, bg="#e6f2ff", relief="ridge", bd=2)
+left_frame.pack(side="left", fill="y", padx=10, pady=10)
+
+tk.Label(left_frame, text="Add / Edit Contact", font=("Arial", 14, "bold"), bg="#e6f2ff").pack(pady=10)
+
+form_frame = tk.Frame(left_frame, bg="#e6f2ff")
+form_frame.pack(padx=10, pady=5)
+
+labels = [("Name", name_var), ("Phone", phone_var), ("Email", email_var), ("Address", address_var)]
+for i, (text, var) in enumerate(labels):
+    tk.Label(form_frame, text=text + ":", font=("Arial", 11), bg="#e6f2ff").grid(row=i, column=0, sticky="w", pady=5)
+    tk.Entry(form_frame, textvariable=var, width=30).grid(row=i, column=1, pady=5, padx=5)
+
+btn_frame = tk.Frame(left_frame, bg="#e6f2ff")
+btn_frame.pack(pady=10)
+
+def create_btn(text, cmd, color):
+    return tk.Button(btn_frame, text=text, command=cmd, width=12, font=("Arial", 10, "bold"),
+                     bg=color, fg="white", activebackground="#004d66")
+
+create_btn("Add", add_contact, "#009688").grid(row=0, column=0, padx=5, pady=3)
+create_btn("Update", update_contact, "#00796B").grid(row=1, column=0, padx=5, pady=3)
+create_btn("Delete", delete_contact, "#e53935").grid(row=2, column=0, padx=5, pady=3)
+create_btn("Clear", clear_fields, "#757575").grid(row=3, column=0, padx=5, pady=3)
+
+tk.Label(left_frame, text="Search by Name or Phone:", bg="#e6f2ff", font=("Arial", 10)).pack(pady=(10, 0))
+search_entry = tk.Entry(left_frame, textvariable=search_var, width=30)
+search_entry.pack(pady=5)
+tk.Button(left_frame, text="Search", command=search_contact, bg="#1976D2", fg="white", font=("Arial", 10, "bold")).pack()
+
+right_frame = tk.Frame(dashboard, bg="#f0f4f7", relief="ridge", bd=2)
+right_frame.pack(side="right", fill="both", expand=True, padx=10, pady=10)
+
+scroll_y = tk.Scrollbar(right_frame, orient="vertical")
+scroll_x = tk.Scrollbar(right_frame, orient="horizontal")
+
+contact_list = ttk.Treeview(
+    right_frame,
+    columns=("Name", "Phone", "Email", "Address"),
+    show="headings",
+    yscrollcommand=scroll_y.set,
+    xscrollcommand=scroll_x.set,
+    selectmode="browse"
+)
+
+scroll_y.pack(side="right", fill="y")
+scroll_x.pack(side="bottom", fill="x")
+scroll_y.config(command=contact_list.yview)
+scroll_x.config(command=contact_list.xview)
+
+cols = [("Name", 150), ("Phone", 120), ("Email", 200), ("Address", 250)]
+for col, width in cols:
+    contact_list.heading(col, text=col)
+    contact_list.column(col, width=width, anchor="center")
+
+contact_list.pack(fill="both", expand=True)
+contact_list.bind("<<TreeviewSelect>>", on_select)
+
+style = ttk.Style()
+style.theme_use("clam")
+style.configure("Treeview",
+                background="white",
+                foreground="black",
+                fieldbackground="white",
+                rowheight=30,
+                bordercolor="#cccccc",
+                borderwidth=1)
+style.configure("Treeview.Heading", font=('Arial', 12, 'bold'), foreground="#004d66")
+style.map('Treeview', background=[('selected', '#b3e0ff')])
+style.layout("Treeview", [('Treeview.treearea', {'sticky': 'nswe'})])
+contact_list.tag_configure('odd', background="#f2f2f2")
+contact_list.tag_configure('even', background="#e0f7fa")
+
+refresh_list()
+root.mainloop()

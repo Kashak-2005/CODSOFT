@@ -68,6 +68,26 @@ score_label.pack(pady=10)
 button_frame = tk.Frame(root, bg="#f0f8ff")
 button_frame.pack(pady=10)
 
+rock_btn = tk.Button(button_frame, text="🪨 Rock", font=("Arial", 12), bg="#c1e1c1", width=12, command=lambda: make_choice("Rock"))
+rock_btn.grid(row=0, column=0, padx=5)
+
+paper_btn = tk.Button(button_frame, text="✋ Paper", font=("Arial", 12), bg="#ffd580", width=12, command=lambda: make_choice("Paper"))
+paper_btn.grid(row=0, column=1, padx=5)
+
+scissors_btn = tk.Button(button_frame, text="✂️ Scissors", font=("Arial", 12), bg="#ff9999", width=12, command=lambda: make_choice("Scissors"))
+scissors_btn.grid(row=0, column=2, padx=5)
+
+bottom_frame = tk.Frame(root, bg="#f0f8ff")
+bottom_frame.pack(pady=20)
+
+reset_btn = tk.Button(bottom_frame, text="🔁 Play Again", font=("Arial", 12), bg="#add8e6", command=reset_game)
+reset_btn.pack(side="left", padx=10)
+
+exit_btn = tk.Button(bottom_frame, text="❌ Exit", font=("Arial", 12), bg="#ff6666", command=on_exit)
+exit_btn.pack(side="right", padx=10)
+
+root.mainloop()
+
 
 
 

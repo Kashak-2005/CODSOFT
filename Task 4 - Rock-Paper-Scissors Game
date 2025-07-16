@@ -18,25 +18,25 @@ def make_choice(user_choice):
     global user_score, comp_score
     comp_choice = random.choice(choices)
     result = determine_winner(user_choice, comp_choice)
-    
+
     if result == "You Win!":
         user_score += 1
     elif result == "You Lose!":
         comp_score += 1
 
-    user_choice_label.config(text=f"Your Choice: {user_choice}")
-    comp_choice_label.config(text=f"Computer's Choice: {comp_choice}")
+    user_choice_label.config(text=f"You: {user_choice}")
+    comp_choice_label.config(text=f"Computer: {comp_choice}")
     result_label.config(text=result)
-    score_label.config(text=f"Score: You {user_score} - {comp_score} Computer")
+    score_label.config(text=f"Score → {user_score} : {comp_score}")
 
 def reset_game():
     global user_score, comp_score
     user_score = 0
     comp_score = 0
-    user_choice_label.config(text="Your Choice: ")
-    comp_choice_label.config(text="Computer's Choice: ")
+    user_choice_label.config(text="You: ")
+    comp_choice_label.config(text="Computer: ")
     result_label.config(text="")
-    score_label.config(text="Score: You 0 - 0 Computer")
+    score_label.config(text="Score → 0 : 0")
 
 def on_exit():
     if messagebox.askyesno("Quit Game", "Are you sure you want to quit?"):
@@ -47,52 +47,58 @@ comp_score = 0
 
 root = tk.Tk()
 root.title("Rock-Paper-Scissors Game")
-root.geometry("400x500")
-root.config(bg="#f0f8ff")
+root.geometry("850x500")
+root.config(bg="#f4faff")
 
-title = tk.Label(root, text="🪨 Rock ✋ Paper ✂️ Scissors", font=("Arial", 18, "bold"), bg="#f0f8ff", fg="#333")
-title.pack(pady=20)
+header = tk.Label(root, text="Rock Paper Scissors Arena", font=("Arial", 20, "bold"), bg="#dfefff", fg="#222")
+header.pack(fill="x", pady=10)
 
-user_choice_label = tk.Label(root, text="Your Choice: ", font=("Arial", 14), bg="#f0f8ff")
-user_choice_label.pack(pady=5)
+separator = tk.Frame(root, height=2, bg="#b0c4de")
+separator.pack(fill="x")
 
-comp_choice_label = tk.Label(root, text="Computer's Choice: ", font=("Arial", 14), bg="#f0f8ff")
-comp_choice_label.pack(pady=5)
+main_frame = tk.Frame(root, bg="#f4faff")
+main_frame.pack(fill="both", expand=True, padx=20, pady=20)
 
-result_label = tk.Label(root, text="", font=("Arial", 16, "bold"), fg="#4b0082", bg="#f0f8ff")
-result_label.pack(pady=20)
+left_frame = tk.Frame(main_frame, bg="#f4faff")
+left_frame.grid(row=0, column=0, sticky="nsew", padx=20)
 
-score_label = tk.Label(root, text="Score: You 0 - 0 Computer", font=("Arial", 12, "bold"), bg="#f0f8ff")
+user_choice_label = tk.Label(left_frame, text="You: ", font=("Arial", 16), bg="#f4faff", fg="#333")
+user_choice_label.pack(pady=20)
+
+comp_choice_label = tk.Label(left_frame, text="Computer: ", font=("Arial", 16), bg="#f4faff", fg="#333")
+comp_choice_label.pack(pady=20)
+
+center_frame = tk.Frame(main_frame, bg="#e6f2ff", bd=2, relief="ridge", width=260)
+center_frame.grid(row=0, column=1, sticky="nsew", padx=20)
+center_frame.grid_propagate(False)
+
+result_label = tk.Label(center_frame, text="", font=("Arial", 20, "bold"), bg="#e6f2ff", fg="#004466", wraplength=240)
+result_label.pack(pady=30)
+
+score_label = tk.Label(center_frame, text="Score → 0 : 0", font=("Arial", 14, "bold"), bg="#e6f2ff", wraplength=240)
 score_label.pack(pady=10)
 
-button_frame = tk.Frame(root, bg="#f0f8ff")
-button_frame.pack(pady=10)
+right_frame = tk.Frame(main_frame, bg="#f4faff")
+right_frame.grid(row=0, column=2, sticky="nsew", padx=20)
 
-rock_btn = tk.Button(button_frame, text="🪨 Rock", font=("Arial", 12), bg="#c1e1c1", width=12, command=lambda: make_choice("Rock"))
-rock_btn.grid(row=0, column=0, padx=5)
+tk.Button(right_frame, text="Rock", font=("Arial", 14), bg="#d6f5d6", width=15,
+          command=lambda: make_choice("Rock")).pack(pady=10)
 
-paper_btn = tk.Button(button_frame, text="✋ Paper", font=("Arial", 12), bg="#ffd580", width=12, command=lambda: make_choice("Paper"))
-paper_btn.grid(row=0, column=1, padx=5)
+tk.Button(right_frame, text="Paper", font=("Arial", 14), bg="#fff2cc", width=15,
+          command=lambda: make_choice("Paper")).pack(pady=10)
 
-scissors_btn = tk.Button(button_frame, text="✂️ Scissors", font=("Arial", 12), bg="#ff9999", width=12, command=lambda: make_choice("Scissors"))
-scissors_btn.grid(row=0, column=2, padx=5)
+tk.Button(right_frame, text="Scissors", font=("Arial", 14), bg="#ffcccc", width=15,
+          command=lambda: make_choice("Scissors")).pack(pady=10)
 
-bottom_frame = tk.Frame(root, bg="#f0f8ff")
-bottom_frame.pack(pady=20)
+main_frame.grid_columnconfigure((0, 1, 2), weight=1)
 
-reset_btn = tk.Button(bottom_frame, text="🔁 Play Again", font=("Arial", 12), bg="#add8e6", command=reset_game)
-reset_btn.pack(side="left", padx=10)
+bottom_frame = tk.Frame(root, bg="#dfefff")
+bottom_frame.pack(fill="x", pady=10)
 
-exit_btn = tk.Button(bottom_frame, text="❌ Exit", font=("Arial", 12), bg="#ff6666", command=on_exit)
-exit_btn.pack(side="right", padx=10)
+tk.Button(bottom_frame, text="Play Again", font=("Arial", 12), bg="#add8e6", width=15,
+          command=reset_game).pack(side="left", padx=20, pady=5)
+
+tk.Button(bottom_frame, text="Exit Game", font=("Arial", 12), bg="#ff9999", width=15,
+          command=on_exit).pack(side="right", padx=20, pady=5)
 
 root.mainloop()
-
-
-
-
-
-
-
-
-

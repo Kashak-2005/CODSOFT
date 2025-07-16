@@ -1,11 +1,3 @@
-🔹 TASK 1: TO-DO LIST
-Description:
-A simple and effective task management app that allows users to create, update, delete, and track their daily tasks.
-Features:
-Add new tasks
-Mark tasks as complete
-Delete completed tasks
-Tkinter GUI with scrollable task list
 
 🔹 TASK 2: CALCULATOR
 Description:
